@@ -12,7 +12,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://chatify-api.up.railway.app/auth/csrf")
+    axios.patch("https://chatify-api.up.railway.app/csrf")
     .then(res => setCsrfToken(res.data.csrfToken))
     .catch(error => console.log("CSRF error", error));
   }, []);
@@ -20,23 +20,20 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+  console.log({ username, password, email, avatar, csrfToken });
 
     try {
       const res = await axios.post(
         'https://chatify-api.up.railway.app/auth/register',
         {username, password, email, avatar, csrfToken },
-        {
-          headers: {
-            'Content-type': 'application/json',
-          } 
-        }
+        {headers: {'Content-type': 'application/json'}}
       );
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       navigate("/chat");
     } catch (error){
-      setError(error.response?.data?.message  || 'Något gick fel');
+      setError(error.response?.data?.error  || 'Vänligen fyll i alla fält');
     }
   };
 
