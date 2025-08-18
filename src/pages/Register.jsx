@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -20,7 +21,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-  console.log({ username, password, email, avatar, csrfToken });
 
     try {
       const res = await axios.post(
@@ -31,7 +31,9 @@ const Register = () => {
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      navigate("/chat");
+      alert("Du är nu registrerad!")
+
+      navigate("/login");
     } catch (error){
       setError(error.response?.data?.error  || 'Vänligen fyll i alla fält');
     }

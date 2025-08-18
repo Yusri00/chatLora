@@ -34,10 +34,10 @@ const Login = () => {
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));  // sparar avatar, id etc
-
+     
       navigate('/chat');
     } catch (error){
-      setError(error.response?.data?.message || 'Något gick fel');
+      setError(error.response?.data?.error || 'Något gick fel');
     }
   };
 
