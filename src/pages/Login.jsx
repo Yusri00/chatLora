@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import chatImg from '../assets/chat.png';
 
 const Login = () => {
@@ -36,19 +36,18 @@ const Login = () => {
 
       navigate('/chat');
     } catch (error){
-      console.log(error.response?.data);
       setError(error.response?.data?.error || 'Something went wrong');
     }
   };
 
   return (
     <div>
-      <h1 className="chatlora-title">
+      <div className="page-wrapper">
+        <h1 className="chatlora-title">
         ChatLora 
-        <img src={chatImg}alt="chatimage" id="chatImg"  />
+        <img src={chatImg} alt="chatimage" id="chatImg"  />
       </h1>
-      {error && <p className='error'>{error}</p>}
-    
+
     <form onSubmit ={handleSubmit}>
       <div className="form-container">
         <h3 className="login-title">Login</h3>
@@ -76,12 +75,17 @@ const Login = () => {
         
           <div className="auth-button-container">
           <button type="submit" className="auth-button">Login</button>
-          <button type="button" onClick={() => navigate('/')} className="auth-button">Register
-          </button>
+
+          <p className="signup-link">
+            New member?{""}
+            <Link to="/"> Sign up</Link>
+          </p>
+
           </div>
         </div>
         </div>
       </form>
+      </div>
     </div>
   );
 }

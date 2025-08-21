@@ -41,7 +41,8 @@ const Register = () => {
 
   return (
     <div>
-      <h1 className="chatlora-title">
+      <div className='page-wrapper'>
+        <h1 className="chatlora-title">
         ChatLora 
         <img src={chatImg}alt="chatimage" id="chatImg"  />
       </h1>
@@ -104,6 +105,7 @@ const Register = () => {
           </div>
         </div>
       </form>
+      </div>
     </div>
   );
 }
