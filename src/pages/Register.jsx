@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { useNavigate, Link } from "react-router-dom";
+import chatImg from '../assets/chat.png';
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -31,49 +31,78 @@ const Register = () => {
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      alert("Du är nu registrerad!")
+      alert("You are registered!")
 
       navigate("/login");
     } catch (error){
-      setError(error.response?.data?.error  || 'Vänligen fyll i alla fält');
+      setError(error.response?.data?.error  || 'Please fill in the missing fields');
     }
   };
 
   return (
     <div>
-    <h1>Register</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-   
-        <input
-          type='text'
-          placeholder='Användarnamn'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+      <h1 className="chatlora-title">
+        ChatLora 
+        <img src={chatImg}alt="chatimage" id="chatImg"  />
+      </h1>
+    
+    <form onSubmit ={handleSubmit}>
+      <div className="form-container">
+        <h3 className="signup-title">Sign Up</h3>
+        {error && <p className='error'>{error}</p>}
+        <div className="form-input">
+          <label>
+            Username
+            <input
+              type='text'
+              placeholder='username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
 
-        <input
-          type="password"
-          placeholder="Lösenord"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
 
-        <input 
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <label>
+            Email
+            <input 
+              type='email'
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
 
-        <input
-          type='text'
-          placeholder='Avatar URL'
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-        />
-      
-      <button type="submit">Registrera dig</button>
+          <label>
+            Avatar URL
+            <input
+              type='text'
+              placeholder='Avatar URL'
+              value={avatar}
+              onChange={(e) => setAvatar(e.target.value)}
+            />
+          </label>
+        
+        <div className="auth-button-container">
+          <button type="submit" className='auth-button'>
+            Register
+          </button>
+          
+          <p className="login-link">
+            Already have an account?{""}
+            <Link to="/login"> Log in </Link>
+          </p>
+            </div>  
+          </div>
+        </div>
       </form>
     </div>
   );

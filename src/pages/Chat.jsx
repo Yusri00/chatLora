@@ -25,7 +25,12 @@ const Chat = () => {
 
   return (
     <>
-
+    {user && (
+    <div>
+      <h2> Welcome {user.username}</h2>
+      <img src={user.avatar} alt="avatar" width={50} height={50} />
+    </div>
+    )}
     </>
   )
 }

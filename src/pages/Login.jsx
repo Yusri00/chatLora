@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import chatImg from '../assets/chat.png';
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -11,7 +12,7 @@ const Login = () => {
 
   // Hämtar CSRF-token när komponenten mountas
   useEffect(() => {
-    axios.get("https://chatify-api.up.railway.app/auth/csrf")
+    axios.patch("https://chatify-api.up.railway.app/csrf")
     .then(res => setCsrfToken(res.data.csrfToken))
     .catch(error => console.log("CSRF error", error));
   }, []);
@@ -22,47 +23,64 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        'https://chatify-api.up.railway.app/auth/login',
-        {username, password, csrfToken}, //Här skickas all data
+        'https://chatify-api.up.railway.app/auth/token',
+        {username, password, csrfToken}, //Här skickas all data för att generera token
         {
           headers: {
             'Content-type': 'application/json',
           } 
-          
         }
       );
-
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));  // sparar avatar, id etc
-     
+      localStorage.setItem('user', JSON.stringify(res.data.user));  // sparar avatar, id etc.
+
       navigate('/chat');
     } catch (error){
-      setError(error.response?.data?.error || 'Något gick fel');
+      console.log(error.response?.data);
+      setError(error.response?.data?.error || 'Something went wrong');
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit ={handleSubmit}>
+      <h1 className="chatlora-title">
+        ChatLora 
+        <img src={chatImg}alt="chatimage" id="chatImg"  />
+      </h1>
+      {error && <p className='error'>{error}</p>}
+    
+    <form onSubmit ={handleSubmit}>
+      <div className="form-container">
+        <h3 className="login-title">Login</h3>
+        {error && <p className='error'>{error}</p>}
+        <div className="form-input">
+        <label>
+          Username
+        <input
+          type="text"
+          placeholder="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          />
+        </label>
 
-      <input
-        type="text"
-        id="username"
-        placeholder="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        />
-
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Logga in</button>
-        <button type="button" onClick={() => navigate('/register')}>Registrera dig</button>
+        <label>
+          Password
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          />
+        </label>
+        
+          <div className="auth-button-container">
+          <button type="submit" className="auth-button">Login</button>
+          <button type="button" onClick={() => navigate('/')} className="auth-button">Register
+          </button>
+          </div>
+        </div>
+        </div>
       </form>
     </div>
   );

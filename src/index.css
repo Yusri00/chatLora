@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: '../assets/Ai.jpg';
 }
 
 h1 {
@@ -35,17 +36,105 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+/*Gemensamma CSS regler*/
+
+.chatlora-title{
+  margin-left: 400px;
+}
+
+#chatImg{
+  width: 45px;
+  height: auto;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.error{
+    color: red;   
+}
+
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  padding: 50px 30px; /* mer padding = längre ruta */
+  margin: 50px auto;  /* centrerar horisontellt */
+  margin-left: 180px;
+  height: 600px;
+
+  background: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.form-input{
+  display: flex;
+  flex-direction: column;
+  width: 70vh;
+  gap: 2px;
+}
+
+.form-input input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 9px;
+  box-sizing: border-box;
+}
+
+.auth-button-container {
+  display: flex;
+  flex-direction: column; /* eller row om du vill sida vid sida */
+  gap: 15px; /* mellan knapparna */
+  width: 100%;
+  margin-top: 55px;
+}
+
+.auth-button {
+  width: 100%;  
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.auth-button:hover {
+  border-color: #646cff;
+}
+
+.login-link{
+  color: black;
+}
+
+/* Registera sidan */
+.signup-title{
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 60px;
+  text-align: center; 
+  color: #242424; 
+}
+
+/* Login sidan */
+.login-title{
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 60px;
+  text-align: center; 
+  color: #242424;
+}
+
+.login-link{
+  text-align: center;
+}
+
 button:hover {
   border-color: #646cff;
 }
