@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import chatImg from '../assets/chat.png';
+import eyeOpen from '../assets/eye-open.png';
+import eyeClosed from '../assets/eye-closed.png';
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
   const [csrfToken, setCsrfToken] = useState("");
@@ -51,46 +54,55 @@ const Register = () => {
       <div className="form-container">
         <h3 className="signup-title">Sign Up</h3>
         {error && <p className='error'>{error}</p>}
+        
         <div className="form-input">
-          <label>
-            Username
-            <input
-              type='text'
-              placeholder='username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
 
-          <label>
-            Password
+          <div className="form-input">
+            <label htmlFor="password">Password</label>
             <input
-              type="password"
-              placeholder="password"
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </label>
+            <img src={showPassword ? eyeOpen: eyeClosed}
+            className='eye-icon'
+            onClick={() => setShowPassword(!showPassword)}
+            alt='Toggle password visibility'
+            />
+          </div>
 
-          <label>
-            Email
-            <input 
-              type='email'
-              placeholder='Email'
+          <div className="form-input">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
+          </div>
 
-          <label>
-            Avatar URL
+          <div className="form-input">
+            <label htmlFor="avatar">Avatar URL</label>
             <input
-              type='text'
-              placeholder='Avatar URL'
+              id="avatar"
+              type="text"
+              placeholder="Avatar URL"
               value={avatar}
               onChange={(e) => setAvatar(e.target.value)}
             />
-          </label>
+          </div>
         
         <div className="auth-button-container">
           <button type="submit" className='auth-button'>
@@ -103,7 +115,6 @@ const Register = () => {
           </p>
             </div>  
           </div>
-        </div>
       </form>
       </div>
     </div>

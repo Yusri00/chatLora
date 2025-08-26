@@ -1,0 +1,182 @@
+/*Gemensamma CSS regler*/
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+.chatlora-title{
+  text-align: center;
+  margin: 20px;
+  margin-top: 5px;
+  text-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  margin-left: 70px;
+  font-family: 'Inter', system-ui, sans-serif; 
+  color: white;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.1;
+}
+
+#chatImg{
+  width: 45px;
+  height: auto;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 650px; 
+  position: relative;
+  z-index: 1;
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 35px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.1),
+    0 1px 0px rgba(255,255,255,0.8) inset;
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 90%;
+  max-width: 650px; 
+  min-width: 500px; 
+   min-height: 500px; /* Fixerad minimum höjd för båda sidorna */
+  margin: 0 auto; /* centrerar boxen */
+  box-sizing: border-box;
+}
+
+.form-input{
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.eye-icon{
+  position: absolute;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  cursor: pointer;
+  top: 40px;
+}
+
+.eye-icon:hover{
+  opacity: 1;
+}
+
+.form-input label {
+  margin-bottom: 7px; /* liten marginal mellan label och input */
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424; 
+}
+
+.form-input input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1.5px solid #e1e8ed;
+  background: white;
+  height: 45px; /* Fast höjd för konsistens */
+  box-sizing: border-box;
+}
+
+.error{
+  color: #ff4757;
+  font-size: 17px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* Button container */
+.auth-button-container {
+  display: flex;
+  flex-direction: column; 
+  gap: 12px; /* mellan register knapp och login länk */
+  width: 100%;
+  margin-top: 25px;
+  max-width: 350px;
+}
+
+.auth-button {
+  width: 100%;  
+  border-radius: 10px;
+  border: none;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  position: relative;
+  height: 45px; /* Större knapp */
+}
+
+.auth-button:hover {
+  border-color: #646cff;
+  transform: translateY(-1px); /* Mindre hover effect */
+  box-shadow: 0 5px 10px rgb(168, 147, 203);
+}
+
+/*Already a member / New member text */
+.signup-link, .login-link{
+  text-align: center;
+  color: 242424;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.login-link a, .signup-link a {
+  color: #667eea;
+  text-decoration: none;  
+  font-weight: 600;
+}
+
+.login-link a:hover, .signup-link a:hover {
+  color: #535bf2;
+}
+/* Registera sidan */
+.signup-title{
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 40px;
+  text-align: center; 
+  color: #242424; 
+}
+
+/* Login sidan */
+.login-title{
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 40px;
+  text-align: center; 
+  color: #242424;
+}
