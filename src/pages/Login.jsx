@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import chatImg from '../assets/chat.png';
 import eyeOpen from '../assets/eye-open.png';
 import eyeClosed from '../assets/eye-closed.png';
+import '../styles/index.css';
+
 
 const Login = () => {
   const [username, setUsername] = useState("");

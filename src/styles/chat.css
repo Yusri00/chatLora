@@ -11,44 +11,55 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 0px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
 }
 
-.chatlora-title{
+.chatlora-title-chat{
   display: flex;
   align-items: center;
-  font-size: 52px;
+  font-size: 42px;
   font-weight: 700;
   color: white;
-  text-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  margin-bottom: 65px;
+  margin-left: 110px;
+  color: rgb(51, 49, 49);
 }
 
 #chatImg{
-  width: 45px;
+  width: 40px;
   height: auto;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /*Chat*/
 .page-wrapper-chat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
-  height: 100vh;
-  width: 100%;
+  height: 97vh;
+  width: 680px;
   background-color: white;
+  border-radius: 40px;
+  overflow: hidden; /* hindrar att saker sticker ut */
 }
 
-.chat-container{
+/* mitten (conversations) tar all plats mellan header och input */
+.chat-main-wrapper {
+  flex: 1;
+  overflow-y: auto;  /* bara meddelanden scrollar */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.chat-title-container{
   background: white;
   border-radius: 20px;
-  width: 85%;
+  width: 78%;
   max-width: 1200px;
   height: 100px;
   display: flex;
+  position: relative;
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -60,19 +71,57 @@ body {
 .chat-header{
   display: flex;
   align-items: center;
-  padding: 20px 40px;
-  gap: 40px;
+  padding: 40px 20px;
   height: 100px;
   box-sizing: border-box;
 }
 
-.chat-main {
-  display: flex;
-  flex-direction: column;
-  background: #f4f4f4;
-  padding: 40px; 
+.conversations{
+  padding: 10px 30px;
+}
+
+.avatar-img-chat{
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+}
+/* input field with button*/
+#message-input{
+  flex: 1; /*fyller allt utrymme som finns kvar bredvid knappen*/
+  min-height: 40px;
+  max-height: 120px;
+  padding: 10px 15px;
   border-radius: 20px;
-  overflow: hidden;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  }
+
+.write-message-box {
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  border-radius: 0 0 40px 40px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.send-btn{
+  padding: 10px 20px;
+  width: 120px;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.send-btn:hover {
+  background: linear-gradient(135deg, #5567d9 0%, #653a90 100%);
 }
 
 /* Overlay som mörkar bakgrund*/
@@ -108,9 +157,10 @@ body {
 }
 
 #sidenav-icon{
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
+  margin-bottom: 36px;
 }
 
 .close-btn{
@@ -131,6 +181,7 @@ body {
   flex-direction: column;  
   align-items: center;
   gap: 3px;
+  margin-top: 20px;
 }
 .avatar-img{
   width: 100px;

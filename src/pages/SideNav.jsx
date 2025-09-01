@@ -1,3 +1,4 @@
+import '../styles/chat.css';
 
 const SideNav = ({user, onLogout, isOpen, onClose}) => {
   // Om inte öppen, visa ingenting
