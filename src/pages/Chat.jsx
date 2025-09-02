@@ -45,11 +45,12 @@ const Chat = () => {
       setMessages(res.data);
     } catch (error){
       console.error("Kunde inte hämta meddelanden", error);
+      if(error.response?.status === 403){
+        logOut();
+      }
     }
   }
-    if(token){
-      fetchMessages();
-    }
+    fetchMessages();
   }, [user, token]);
     
   
