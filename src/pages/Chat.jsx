@@ -10,13 +10,32 @@ import '../styles/chat.css';
 
 const Chat = () => {
     const navigate = useNavigate();
-    const [user, setUser] = useState(null) /* eftersom user är ett objekt (id, username, avatar), inte en text*/
-    const [sideNavOpen, setSideNavOpen] = useState(false);
     const token = localStorage.getItem('token');
 
+    const [user, setUser] = useState(null) /* eftersom user är ett objekt (id, username, avatar), inte en text*/
+    const [sideNavOpen, setSideNavOpen] = useState(false);
+    // Inputfältets innehåll
+    const [newMessages, setNewMessages] = useState("");
+    // State för riktiga meddelanden 
+    const [messages, setMessages] = useState([]);
+    const [fakeMessages] = useState([
+      {
+        fakeId: 1,
+        text: 'Hej Sofia, så roligt att få prata med dig!',
+        username: 'Marcus',
+        avatar: "https://i.pravatar.cc/100?img=14",
+      },
+
+      {
+        fakeId: 2,
+        text: 'Hallåååå, svaraaaa. Var inte så trög :(',
+        username: 'Marcus',
+        avatar: "https://i.pravatar.cc/100?img=14",
+      },
+    ]);
 
   useEffect(() => {
-      if(token){
+    if(!token) return navigate("/login");
         try {
         const decoded = jwtDecode(token);
 
@@ -25,116 +44,66 @@ const Chat = () => {
           username: decoded.user,
           avatar: decoded.avatar
         });
-      } catch (error) {
-        console.error('Token error:', error);
+      } catch (error){
+        console.error("Token error", error);
         navigate('/login');
-      }
-    }else{
-        navigate("/login");
     }
-  }, [navigate, token]);
+  }, [token, navigate]);
+
 
   useEffect(() => {
     if(!user) return; //väntar tills användaren är inloggad
 
-    async function fetchMessages (){
-      try {
-        const res = await axios.get('https://chatify-api.up.railway.app/messages',{
-          headers: { Authorization: `Bearer ${token}`}
-      });
-      setMessages(res.data);
-    } catch (error){
-      console.error("Kunde inte hämta meddelanden", error);
-      if(error.response?.status === 403){
-        logOut();
-      }
-    }
-  }
-    fetchMessages();
-  }, [user, token]);
+    axios.get('https://chatify-api.up.railway.app/messages', { 
+      headers: { Authorization: `Bearer ${token}` } 
+  })
+    .then(response => setMessages(response.data))
+    .catch(error => {
+        console.error("Kunde inte hämta meddelanden", error);
+        if(error.response?.status === 403) logOut();
+  });
+}, [user, token]);
     
-  
     function logOut() {
       localStorage.removeItem('token');
       setUser(null);
       navigate('/login');
-    }
-
-    function toggleSideNav() {
-      setSideNavOpen(!sideNavOpen);
-    }
+    };
     
     //Postar till APIet.
-    async function handleSendBtn() {
+    const handleSendBtn = () => {
       if(!newMessages.trim()) return;
 
-      try {
-        const res = await axios.post(
+      axios.post(
           'https://chatify-api.up.railway.app/messages',
-          {
-            text: DOMPurify.sanitize(newMessages),
-            username: user?.username,
-            avatar: user?.avatar
-        },
-          { headers: { Authorization: `Bearer ${token}`}}
-      );
-      
-      //Uppdaterar state med nya meddelandet från API
-      setMessages(prev=> [...prev, res.data]);
-      setNewMessages('');
-      } catch (error) {
-        console.error('Kunde inte skicka meddelandet', error);
-      }
-  }
+          { text: DOMPurify.sanitize(newMessages) },
+          { headers: { Authorization: `Bearer ${token}` } }
+      )
+        //Uppdaterar state med nya meddelandet från API
+        .then(response => {
+          const newMsg = { ...response.data.latestMessage, userId: user.userId };
+          setMessages(prev => [...prev, newMsg]);
+          setNewMessages('');
+        })
+        .catch(error => console.error('Kunde inte skicka meddelandet', error));
+      };
+    
 
-    async function handleDeleteMsg(id) {
+    const handleDeleteMsg = async (msgID) => {
+      if (!msgID) return alert("Meddelandet kan inte tas bort");  
       try {
-        await axios.delete(`https://chatify-api.up.railway.app/messages/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-    });
-
-    // Tar bort meddelandet från state efter lyckad delete
-        setMessages(prev => prev.filter(msg => msg.id !== id));
+        await axios.delete(
+          `https://chatify-api.up.railway.app/messages/${msgID}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        // Tar bort meddelandet från state efter lyckad delete
+        setMessages(prev => prev.filter(msg => msg.id !== msgID));
       } catch (error){
         console.error('Kunde inte ta bort meddelandet', error);
         }
-      }
-
-    // Inputfältets innehåll
-    const [newMessages, setNewMessages] = useState("");
-
-    // State för riktiga meddelanden 
-    const [messages, setMessages] = useState([]);
-
-    const [fakeMessages, setFakeMessages] = useState([
-
-      {
-        id: 1,
-        text: 'Hej Sofia, så roligt att få prata med dig!',
-        username: 'Marcus',
-        avatar: "https://i.pravatar.cc/100?img=14",
-        userId: 1
-      },
-
-      {
-        id: 2,
-        text: 'Hallåååå, svaraaaa. Var inte så trög :(',
-        username: 'Marcus',
-        avatar: "https://i.pravatar.cc/100?img=14",
-        userId: 1
-      },
-
-      {
-        id: 3,
-        text: 'Omg, ta det lugnt. Vad ska du göra idag?',
-        username: user?.username,
-        avatar: user?.avatar,
-        userId: user?.userId
-      }
-
-    ]);
-
-        
+      };
+  
+      
   return (
     <div className="page-wrapper-chat">
       {/* HEADER */}
@@ -145,7 +114,7 @@ const Chat = () => {
           src={sideNavIcon} 
           id='sidenav-icon' 
           alt="sidenavicon"
-          onClick={toggleSideNav}
+          onClick={() => setSideNavOpen(!sideNavOpen)}
         />
         <h1 className="chatlora-title-chat">
           ChatLora 
@@ -168,34 +137,38 @@ const Chat = () => {
       <main className="chat-main-wrapper">
       <div className="conversations">
         {/* Messages */}
-        {[...messages, ...fakeMessages].map(msg => (
+        {[...messages, ...fakeMessages].map((msg, index) => (
           <div 
-            key={msg.id}
-            className={`message ${msg.userId === user?.userId ? 'my-message' : 'fake-message'}`}
-          >
-            <img 
-              src={msg.avatar} 
-              alt={msg.username} 
-              className="avatar-img-chat" 
-            />
-            <p><strong>{msg.username}: </strong>{msg.text}</p>
-             {/* Delete-knapp */}
-            {msg.userId === user?.userId && ( // visar delete-knapp endast för egna meddelanden
-              <button 
-                className="delete-btn"
-                onClick={() => handleDeleteMsg(msg.id)}
-                >Delete</button>
+            key={msg.id || msg.fakeId || `msg-${index}`}
+            className={`message ${msg.userId === user?.userId ? 
+              "my-message" : "fake-message"}`}
+          > 
+          {/* Avatar + namn bara på fejkade användare */}
+          {msg.fakeId && ( 
+            <div className="fake-user-info">
+              <img 
+                src={msg.avatar} 
+                alt="avatar"
+                className="avatar-img-chat" 
+              />
+              <span className="fake-username">
+                <strong>{msg.username}</strong>
+                </span>
+            </div>
             )}
+            {/* Texten */}
+            <p>{msg.text}</p>
+          {/* Delete-knapp */}
+          {msg.userId === user?.userId &&  (
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDeleteMsg(msg.id)}
+                >Delete</button>
+              )}
           </div>
-            ))}
-        </div>
-      </main>
-    {/* {user && (
-      <div className="welcome-message">
-        <h2> Welcome {user.username}</h2>
+        ))}
       </div>
-      )}
-    */}
+    </main>
 
     {/* Skriv-rutan ligger direkt i page-wrapper-chat */}
     <div className="write-message-box">
@@ -210,6 +183,6 @@ const Chat = () => {
     </div>
   </div>
   );
-}
+};
 
 export default Chat

@@ -77,7 +77,19 @@ body {
 }
 
 .conversations{
-  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.my-message {
+  align-self: flex-end; /* flyttar till höger */
+  background-color: #DCF8C6;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+  position: relative;
 }
 
 .avatar-img-chat{
@@ -85,6 +97,7 @@ body {
   height: 70px;
   border-radius: 50px;
 }
+
 /* input field with button*/
 #message-input{
   flex: 1; /*fyller allt utrymme som finns kvar bredvid knappen*/
@@ -122,6 +135,16 @@ body {
 }
 .send-btn:hover {
   background: linear-gradient(135deg, #5567d9 0%, #653a90 100%);
+}
+
+.delete-btn{
+  padding: 5px 10px; /* lagom storlek */
+  background-color: black;
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 /* Overlay som mörkar bakgrund*/
