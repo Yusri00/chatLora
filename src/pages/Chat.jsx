@@ -137,7 +137,7 @@ const Chat = () => {
       <main className="chat-main-wrapper">
       <div className="conversations">
         {/* Messages */}
-        {[...messages, ...fakeMessages].map((msg, index) => (
+        {[...fakeMessages, ...messages].map((msg, index) => (
           <div 
             key={msg.id || msg.fakeId || `msg-${index}`}
             className={`message ${msg.userId === user?.userId ? 

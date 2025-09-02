@@ -1,4 +1,8 @@
 /*Gemensamma CSS regler*/
+* {
+  box-sizing: border-box;
+}
+
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,7 +17,6 @@ body {
   align-items: center;
   padding: 0px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  position: relative;
 }
 
 .chatlora-title-chat{
@@ -21,10 +24,8 @@ body {
   align-items: center;
   font-size: 42px;
   font-weight: 700;
-  color: white;
   margin-bottom: 65px;
   margin-left: 110px;
-  color: rgb(51, 49, 49);
 }
 
 #chatImg{
@@ -49,7 +50,6 @@ body {
   flex: 1;
   overflow-y: auto;  /* bara meddelanden scrollar */
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .chat-title-container{
@@ -64,7 +64,6 @@ body {
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   padding: 20px;
-  box-sizing: border-box;
   margin: 20px auto;
 }
 
@@ -73,23 +72,76 @@ body {
   align-items: center;
   padding: 40px 20px;
   height: 100px;
-  box-sizing: border-box;
 }
 
-.conversations{
+/* Gemensamma regler för meddelanden */
+.conversations {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px 20px;
 }
 
+.message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  word-wrap: break-word;
+}
+
+.fake-message {
+  align-self: flex-start;
+  background-color: #f0f0f0;
+  border-top-left-radius: 0; /* lite sned top-left */
+  margin-left: 5px;
+  gap: 5px;
+}
+
+.fake-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.fake-message .avatar-img-chat {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.fake-message .fake-username {
+  font-weight: 600;
+}
+
 .my-message {
-  align-self: flex-end; /* flyttar till höger */
+  align-self: flex-end;
   background-color: #DCF8C6;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 60%;
-  position: relative;
+  border-top-right-radius: 0;
+  gap: 5px;
+}
+
+.my-message .delete-btn {
+  align-self: flex-end; /* uppe till höger inom bubblan */
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #f63737;
+}
+
+/* Text inom bubbla */
+.message p {
+  margin: 0;
+  font-size: 17px;
 }
 
 .avatar-img-chat{
@@ -101,19 +153,19 @@ body {
 /* input field with button*/
 #message-input{
   flex: 1; /*fyller allt utrymme som finns kvar bredvid knappen*/
-  min-height: 40px;
-  max-height: 120px;
-  padding: 10px 15px;
+  min-height: 50px;
+  padding: 12px 15px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
   }
 
 .write-message-box {
   display: flex;
   gap: 10px;
-  padding: 10px 20px;
+  padding: 15px 20px;
+  min-height: 70px; 
   background-color: #f4f4f4;
   border-top: 1px solid #ddd;
   border-radius: 0 0 40px 40px;
@@ -135,16 +187,6 @@ body {
 }
 .send-btn:hover {
   background: linear-gradient(135deg, #5567d9 0%, #653a90 100%);
-}
-
-.delete-btn{
-  padding: 5px 10px; /* lagom storlek */
-  background-color: black;
-  color: white; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
 /* Overlay som mörkar bakgrund*/
@@ -206,6 +248,7 @@ body {
   gap: 3px;
   margin-top: 20px;
 }
+
 .avatar-img{
   width: 100px;
   height: 100px;
@@ -227,7 +270,6 @@ body {
   color: white;
   cursor: pointer;
   transition: border-color 0.25s;
-  position: relative;
   height: 45px; 
   margin-top: 50px;
   margin-left: 10px;
