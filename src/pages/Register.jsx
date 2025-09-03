@@ -52,7 +52,7 @@ const Register = () => {
         <img src={chatImg}alt="chatimage" id="chatImg"  />
       </h1>
     
-    <form onSubmit ={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div className="form-container">
         <h3 className="signup-title">Sign Up</h3>
         {error && <p className='error'>{error}</p>}
@@ -112,8 +112,7 @@ const Register = () => {
           </button>
           
           <p className="login-link">
-            Already have an account?{""}
-            <Link to="/login"> Log in </Link>
+            Already have an account? <Link to="/login"> Log in </Link>
           </p>
             </div>  
           </div>
@@ -123,4 +122,4 @@ const Register = () => {
   );
 }
 
-export default Register
+export default Register;

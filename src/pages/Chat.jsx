@@ -16,7 +16,6 @@ const Chat = () => {
     const [sideNavOpen, setSideNavOpen] = useState(false);
     // Inputfältets innehåll
     const [newMessages, setNewMessages] = useState("");
-    // State för riktiga meddelanden 
     const [messages, setMessages] = useState([]);
     const [fakeMessages] = useState([
       {
@@ -103,6 +102,13 @@ const Chat = () => {
         }
       };
   
+    // Lägg till en funktion som hanterar Enter
+    const handleKeyPress = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); 
+        handleSendBtn();   
+        }
+      };
       
   return (
     <div className="page-wrapper-chat">
@@ -178,6 +184,7 @@ const Chat = () => {
         placeholder="Write a message.." 
         value={newMessages}
         onChange={(e) => setNewMessages(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
       <button className="send-btn" onClick={handleSendBtn}>Send</button>
     </div>

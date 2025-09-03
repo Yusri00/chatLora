@@ -29,4 +29,4 @@ const SideNav = ({user, onLogout, isOpen, onClose}) => {
   );
 };
 
-export default SideNav
+export default SideNav;

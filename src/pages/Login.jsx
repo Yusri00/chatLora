@@ -6,7 +6,6 @@ import eyeOpen from '../assets/eye-open.png';
 import eyeClosed from '../assets/eye-closed.png';
 import '../styles/index.css';
 
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -89,8 +88,7 @@ const Login = () => {
           <button type="submit" className="auth-button">Login</button>
 
           <p className="signup-link">
-            New member?{""}
-            <Link to="/"> Sign up</Link>
+            New member? <Link to="/"> Sign up</Link>
           </p>
         </div>
         </div>
@@ -100,4 +98,4 @@ const Login = () => {
   );
 }
 
-export default Login
+export default Login;
