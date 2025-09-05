@@ -37,7 +37,6 @@ const Register = () => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
       alert("You are registered!")
-
       navigate("/login");
     } catch (error){
       setError(error.response?.data?.error  || 'Please fill in the missing fields');

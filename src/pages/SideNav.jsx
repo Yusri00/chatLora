@@ -8,7 +8,6 @@ const SideNav = ({user, onLogout, isOpen, onClose}) => {
     <>
       {/* Click outside to close sidenav */}
     <div className="sidenav-overlay" onClick={onClose}></div>
-
     <div className={`sidenav ${isOpen ? "sidenav-open" : ""}`}>
       {/* x button to close sideNav */}
       <button className="close-btn" onClick={onClose}>X</button>

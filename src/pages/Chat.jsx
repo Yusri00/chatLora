@@ -89,7 +89,6 @@ const Chat = () => {
     
 
     const handleDeleteMsg = async (msgID) => {
-      if (!msgID) return alert("Meddelandet kan inte tas bort");  
       try {
         await axios.delete(
           `https://chatify-api.up.railway.app/messages/${msgID}`,
@@ -102,7 +101,6 @@ const Chat = () => {
         }
       };
   
-    // Lägg till en funktion som hanterar Enter
     const handleKeyPress = (e) => {
       if (e.key === "Enter") {
         e.preventDefault(); 
@@ -149,7 +147,7 @@ const Chat = () => {
             className={`message ${msg.userId === user?.userId ? 
               "my-message" : "fake-message"}`}
           > 
-          {/* Avatar + namn bara på fejkade användare */}
+          {/* Avatar + namn på fejkade användaren */}
           {msg.fakeId && ( 
             <div className="fake-user-info">
               <img 
@@ -192,4 +190,4 @@ const Chat = () => {
   );
 };
 
-export default Chat
+export default Chat;

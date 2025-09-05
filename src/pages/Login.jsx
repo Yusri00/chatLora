@@ -36,7 +36,7 @@ const Login = () => {
         }
       );
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));  // sparar avatar, id etc.
+      localStorage.setItem('user', JSON.stringify(res.data.user));  
 
       navigate('/chat');
     } catch (error){
